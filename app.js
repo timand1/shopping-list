@@ -15,6 +15,7 @@ app.use((req, res, next) => {
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept"
     );
+    res.header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
     next();
 });
 async function auth(req, res, next) {
