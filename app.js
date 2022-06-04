@@ -33,6 +33,9 @@ async function auth(req, res, next) {
 app.get("/api", (req, res) => {
     res.json("Hello");
 });
+app.get("/", (req, res) => {
+    res.json("Hello");
+});
 
 app.post('/api/login', async (req, res) => {
     const credentials = req.body;
