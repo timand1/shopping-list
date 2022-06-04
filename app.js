@@ -1,11 +1,11 @@
 const express = require('express')
 const app = express();
 const PORT = process.env.PORT || 8000;
-// const cors = require('cors');
+const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
 const { accountCheck, createAccount, compareCredentials, checkIfAccountExist } = require('./model/accountdb')
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 const shoppingRouter = require('./routes/shoppinglist')
 app.use('/api/shoppinglist', auth, shoppingRouter)
