@@ -17,9 +17,8 @@ app.use((req, res, next) => {
     );
     res.header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
     next();
-
-    // header('Access-Control-Allow-Origin: *');
 });
+
 async function auth(req, res, next) {
     const accountInfo = req.headers.accountid
     const checkAccount = await accountCheck(accountInfo)
@@ -50,6 +49,7 @@ app.post('/api/login', async (req, res) => {
     if (result.length === 1) {
         resObj.success = true
         resObj.message = 'Logged in'
+        resObj.key = result[0].accountId
     } else {
         resObj.message = 'Wrong username and/or password'
     }
