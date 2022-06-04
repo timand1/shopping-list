@@ -7,6 +7,7 @@ const { accountCheck, createAccount, compareCredentials, checkIfAccountExist } =
 app.use(express.json());
 // app.use(cors());
 
+const shoppingRouter = require('./routes/shoppinglist')
 app.use('/api/shoppinglist', auth, shoppingRouter)
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -16,7 +17,6 @@ app.use((req, res, next) => {
     );
     next();
 });
-const shoppingRouter = require('./routes/shoppinglist')
 async function auth(req, res, next) {
     const accountInfo = req.headers.accountid
     const checkAccount = await accountCheck(accountInfo)
