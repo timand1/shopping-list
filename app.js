@@ -49,7 +49,7 @@ app.post('/api/login', async (req, res) => {
     if (result.length === 1) {
         resObj.success = true
         resObj.message = 'Logged in'
-        resObj.key = result[0].accountId
+        resObj.key = result
     } else {
         resObj.message = 'Wrong username and/or password'
     }
