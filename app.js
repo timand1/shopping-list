@@ -9,7 +9,14 @@ app.use(cors());
 
 const shoppingRouter = require('./routes/shoppinglist')
 app.use('/api/shoppinglist', auth, shoppingRouter)
-
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "https://yoursite.com");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+});
 async function auth(req, res, next) {
     const accountInfo = req.headers.accountid
     const checkAccount = await accountCheck(accountInfo)
