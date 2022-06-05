@@ -18,7 +18,10 @@ async function addItem(accountId, item) {
 }
 
 async function deleteItem(accountId, item) {
-    const result = await database.update({ accountId: accountId }, { $pull: { listItems: item } });
+    console.log(item)
+    const banana = await database.find({ "listItems.item": item })
+    console.log(banana)
+    const result = await database.update({ accountId: accountId }, { $pull: { "listItems": { "item": item } } }, { multi: true });
     return result;
 }
 

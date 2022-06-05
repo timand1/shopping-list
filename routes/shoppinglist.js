@@ -11,8 +11,8 @@ router.get('/', async (req, res) => {
         resObj.message = 'Access denied'
     } else {
         const shoppinglist = await getList(accountId);
-
-        if (shoppinglist.length > 0) {
+        console.log(shoppinglist[0].listItems.length)
+        if (shoppinglist.length > 0 && shoppinglist[0].listItems.length > 0) {
             resObj.success = true
             resObj.list = shoppinglist
         } else {
@@ -25,6 +25,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const accountId = req.headers.accountid
     const listItem = req.body
+    listItem.item = listItem.item.toLowerCase()
     if (listItem.antal === '-' || !listItem.antal) {
         listItem.antal = "1"
     }
@@ -38,7 +39,7 @@ router.post('/', async (req, res) => {
         console.log(added)
         if (added) {
             resObj.success = true
-            resObj.message = `${listItem} added`
+            resObj.message = `${listItem.item} added`
         } else {
             resObj.message = `Error adding item`
         }
@@ -49,7 +50,7 @@ router.post('/', async (req, res) => {
 
 router.delete('/', async (req, res) => {
     const accountId = req.headers.accountid
-    const listItem = req.body
+    const listItem = req.body.item
     const resObj = {
         success: false
     }
@@ -57,7 +58,6 @@ router.delete('/', async (req, res) => {
         resObj.message = 'Access denied'
     } else if (listItem) {
         const added = await deleteItem(accountId, listItem)
-        console.log(added)
         if (added) {
             resObj.success = true
             resObj.message = `${listItem} removed`
