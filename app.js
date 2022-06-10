@@ -13,15 +13,15 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.header(
         "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
+        "Origin, X-Requested-With, Content-Type, Accept",
+        "Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS"
     );
-    res.header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
+    // res.header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
     next();
 });
 
 async function auth(req, res, next) {
-    const accountInfo = req.params
-    console.log(accountInfo)
+    const accountInfo = req.headers.accountid
     const checkAccount = await accountCheck(accountInfo)
     if (accountInfo && checkAccount.length === 1) {
         next();
