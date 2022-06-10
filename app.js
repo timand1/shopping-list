@@ -20,7 +20,8 @@ app.use((req, res, next) => {
 });
 
 async function auth(req, res, next) {
-    const accountInfo = req.headers.accountid
+    const accountInfo = req.params
+    console.log(accountInfo)
     const checkAccount = await accountCheck(accountInfo)
     if (accountInfo && checkAccount.length === 1) {
         next();
