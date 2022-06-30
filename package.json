@@ -13,7 +13,9 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.1",
+    "firebase": "^9.8.3",
     "nedb-promise": "^2.0.1",
+    "pg": "^8.7.3",
     "uuid": "^8.3.2"
   }
 }

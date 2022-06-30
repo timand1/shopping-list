@@ -6,23 +6,30 @@ async function getList(accountId) {
     return result
 }
 
-async function addItem(accountId, item) {
-    let result = await database.find({ accountId })
-    if (result.length > 0) {
-        result = await database.update({ accountId: accountId }, { $push: { listItems: item } })
-    } else {
-        result = await database.insert({ accountId: accountId, listItems: [item] })
+async function addItem(shopperItem) {
+    const result = await database.insert(shopperItem)
+    return result;
+}
+
+async function deleteItem(test) {
+    let result;
+    
+    for(const item of test) {
+        result = await database.remove({ id: item.id }) + result
     }
 
     return result;
 }
 
-async function deleteItem(accountId, item) {
-    console.log(item)
-    const banana = await database.find({ "listItems.item": item })
-    console.log(banana)
-    const result = await database.update({ accountId: accountId }, { $pull: { "listItems": { "item": item } } }, { multi: true });
+async function removeAll(id) {
+    const result = await database.remove({ accountId: id }, { multi: true });
     return result;
 }
 
-module.exports = { getList, addItem, deleteItem }
+async function updateItem(itemId, item) {    
+    const result = await database.update({id: itemId}, {$set: {amount: item.amount, itemIsDone: item.itemIsDone}})
+    return result
+}
+
+
+module.exports = { getList, addItem, deleteItem, removeAll, updateItem }
